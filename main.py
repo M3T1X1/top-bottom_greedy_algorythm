@@ -1,0 +1,21 @@
+import csv
+
+def discretize(S, selectedCuts):
+    for obj in S:
+        for attr, cuts in selectedCuts.items():
+            value = obj[attr]  # Wartość oryginalna
+            bins = sorted(cuts)  # Posortowane cięcia
+            label = 0  # Numer przedziału
+            for cut in bins:
+                if value > cut:
+                    label += 1
+                else:
+                    break  # Przerywamy jeśli wartość nie przekracza kolejnego cięcia
+            obj[attr] = f"{attr}_bin{label}"  # Zamieniamy wartość na etykietę przedziału
+    return S  # Zwracamy zmodyfikowane dane
+
+def save_csv(filename, data):
+    with open(filename, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=data[0].keys())  # Tworzymy writer z nagłówkami
+        writer.writeheader()  # Zapisujemy nagłówki
+        writer.writerows(data)  # Zapisujemy wszystkie dane
