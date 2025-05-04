@@ -197,8 +197,6 @@
 
 
 
-import csv
-
 def discretize(S, selectedCuts):
     for obj in S:
         for attr, cuts in selectedCuts.items():
