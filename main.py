@@ -3,7 +3,7 @@ import csv
 # Funkcja do wczytywania danych z pliku CSV
 def load_csv(filename):
     with open(filename, newline='') as f:  # Otwieramy plik CSV
-        reader = csv.DictReader(f)  # Tworzymy obiekt do czytania wierszy jako słowniki
+        reader = csv.DictReader(f, delimiter=';')  # Tworzymy obiekt do czytania wierszy jako słowniki
         data = []
         for row in reader:
             # Zamieniamy wartości atrybutów na float, a decyzję "d" na int
@@ -22,12 +22,12 @@ def generate_cuts(S, attributes):
             d = obj["d"]  # Wartość decyzji
             values_by_decision.setdefault(d, []).append(obj[attr])
 
-        decision_classes = list(values_by_decision.keys())  # Lista klas decyzyjnych
-        for i in range(len(decision_classes)):
-            for j in range(i + 1, len(decision_classes)):
+        d_classes = list(values_by_decision.keys())  # Lista klas decyzyjnych
+        for i in range(len(d_classes)):
+            for j in range(i + 1, len(d_classes)):
                 # Porównujemy pary klas decyzyjnych
-                vi_list = values_by_decision[decision_classes[i]]
-                vj_list = values_by_decision[decision_classes[j]]
+                vi_list = values_by_decision[d_classes[i]]
+                vj_list = values_by_decision[d_classes[j]]
                 for v1 in vi_list:
                     for v2 in vj_list:
                         if v1 != v2:
@@ -103,8 +103,8 @@ def best_cut_fn(S, cuts):
     return best_attr, best_cut, best_gain
 
 if __name__ == "__main__":
-    input_file = "data.csv"  # Nazwa pliku wejściowego
-    output_file = "data_discretized.csv"  # Nazwa pliku wyjściowego
+    input_file = "data1.csv"  # Nazwa pliku wejściowego
+    output_file = "DISCdata.csv"  # Nazwa pliku wyjściowego
 
     data, attributes = load_csv(input_file)  # Wczytujemy dane i listę atrybutów
     cuts = generate_cuts(data, attributes)  # Generujemy możliwe cięcia
