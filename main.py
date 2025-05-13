@@ -3,7 +3,7 @@ import csv
 # Funkcja do wczytywania danych z pliku CSV
 def load_csv(filename):
     with open(filename, newline='') as f:  # Otwieramy plik CSV
-        reader = csv.DictReader(f, delimiter=';')  # Tworzymy obiekt do czytania wierszy jako słowniki
+        reader = csv.DictReader(f, delimiter=',')  # Tworzymy obiekt do czytania wierszy jako słowniki
         data = []
         for row in reader:
             # Zamieniamy wartości atrybutów na float, a decyzję "d" na int
@@ -103,7 +103,7 @@ def best_cut_fn(S, cuts):
     return best_attr, best_cut, best_gain
 
 if __name__ == "__main__":
-    input_file = "data1.csv"  # Nazwa pliku wejściowego
+    input_file = "ewal.csv"  # Nazwa pliku wejściowego
     output_file = "DISCdata.csv"  # Nazwa pliku wyjściowego
 
     data, attributes = load_csv(input_file)  # Wczytujemy dane i listę atrybutów
